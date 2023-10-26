@@ -9,6 +9,7 @@ if __name__ == '__main__':
             if video.processing == True and video.done == False:
                 video.processing = False
                 video.failed = True
+                video.in_queue = False
             db.session.commit()
     t = threading.Thread(target=worker)
     t.start()
