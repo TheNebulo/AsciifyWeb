@@ -6,7 +6,7 @@ if __name__ == '__main__':
     with app.app_context():  
         videos = db.session.query(models.Video).all()
         for video in videos:
-            if video.processing == True and video.done == False:
+            if video.in_queue == True and video.done == False:
                 video.processing = False
                 video.failed = True
                 video.in_queue = False
