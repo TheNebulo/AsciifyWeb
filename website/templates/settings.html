@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings - Asciify</title>
+    <link rel="icon" type="image/png" href="/static/resources/images/logo.png">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/static/css/settings.css" />
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <meta name="{{ category }}" content="{{ message }}" class="notification">
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <script type="module">
+        import { toast } from 'https://cdn.skypack.dev/wc-toast';
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(element => {
+            if (element.name == "success") { toast(element.content,{ icon: { type: 'custom', content: '✅' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else if (element.name == "error") { toast(element.content,{ icon: { type: 'custom', content: '⚠️' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else { toast(element.content, { theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+        });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          var switchBtn = document.getElementById('signup');
+          var mode = "{{ mode }}";
+          if (mode === 'signup') {
+              switchBtn.click(); 
+          }
+      });
+    </script>
+  </head>
+  <body>
+    <wc-toast></wc-toast>
+    <header>
+        <a href="/"><img src="/static/resources/images/logo_full.png" class="logoheader"></a>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/TheNebulo/Asciify" target="_blank">Module</a></li>
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/settings" class="active">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </nav>
+        <div class="menu-toggle"><i class="fa fa-bars"></i></div>
+      </header>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap">
+            <form autocomplete="off" class="sign-in-form" method="POST">
+
+              <div class="heading">
+                <h2>Welcome Back {{user.name}}</h2>
+                <h6>Change your details here:</h6>
+              </div>
+              <div class="actual-form" style="margin-top: 35px;">
+                <div class="input-wrap">
+                    <input
+                        type="text"
+                        name="name"
+                        minlength="4"
+                        class="input-field"
+                        autocomplete="off"
+                    />
+                    <label>Name: {{user.name}}</label>
+                  </div>
+                  
+                <div class="input-wrap">
+                  <input
+                    type="email"
+                    name ='email'
+                    class="input-field"
+                    autocomplete="off"
+                  />
+                  <label>Email: {{user.email}}</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    name="password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    title="At least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    class="input-field"
+                    autocomplete="off"
+                  />
+                  <label>Change Password</label>
+                </div>
+
+                <input type="submit" value="Update" class="sign-btn" />
+
+              </div>
+            </form>
+          </div>
+
+          <div class="carousel">
+            <div></div>
+            <div class="important-container">
+            <form method="POST" class="importantform">
+                <input type="hidden" name="meta" value="account">
+                <input type="submit" value="Delete Account" class="important-btn" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src = "/static/js/settings.js"></script>
+</html>

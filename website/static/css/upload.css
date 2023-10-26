@@ -1,0 +1,171 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: black !important;
+  font-family: "Poppins", sans-serif;
+}
+a {
+  font-family: "Poppins", sans-serif;
+}
+wc-toast-item{
+  --wc-toast-font-family: 'Poppins', sans-serif;
+}
+video {
+  width: 100%;
+  max-width: 768px;
+}
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0 100px;
+  background: black;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 2px solid #5C14C9;
+}
+header .logo {
+  height: 50px;
+}
+header nav {
+  float: right;
+}
+header nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+header nav ul li {
+  list-style: none;
+}
+header nav ul li a {
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  color: #FFF;
+  text-decoration: none;
+  display: block;
+}
+header nav ul li a:hover,
+header nav ul li a.active {
+  color: #FFF;
+  background: #5C14C9;
+}
+.menu-toggle {
+  color: #FFF;
+  float: right;
+  line-height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+}
+@media (max-width: 991px) {
+  header {
+    padding: 0 20px;
+  }
+  .menu-toggle {
+    display: block;
+  }
+  header nav {
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - 50px);
+    background: #000;
+    top: 50px;
+    left: -100%;
+    transition: 0.5s;
+  }
+  header nav.active {
+    z-index: 2;
+    left: 0;
+  }
+  header nav ul {
+    display: block;
+    text-align: center;
+  }
+  header nav ul li a {
+    border-bottom: 1px solid rgba(0,0,0,0.2);
+  }
+}
+.video-container {
+  margin-top: 10px !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.video-card {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+    
+.video-thumbnail {
+  height: 180px;
+  width: 320px;
+}
+    
+.video-details {
+  padding: 10px;
+}
+    
+.video-title {
+  font-size: 16px;
+  color: #5C14C9;
+  font-weight: bold;
+  margin: 5px 0;
+}
+    
+.video-author {
+  color: white;
+  margin: 5px 0;
+}
+
+@media (max-width: 600px) {
+  .video-card {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+form {
+    padding: 2px;
+    width: fit-content;
+    margin-top: 75px !important;
+    border-radius: 5px !important;
+    flex: auto;
+}
+
+input {
+    margin-top  : 4px !important;
+    transform: translate(0, 0);
+    background-color: transparent;
+    border: none;
+    color: white;
+    border: 2px solid #5C14C9 !important;
+    border-radius: 5px;
+    background-color: #222;
+    outline: none;
+}
+
+form i {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 8px;
+    color: #5C14C9;
+}
+
+input::file-selector-button {
+    border-right: 1px solid #5C14C9;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}

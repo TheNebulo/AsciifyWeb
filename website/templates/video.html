@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ video.name }} - Asciify</title>
+    <link rel="icon" type="image/png" href="/static/resources/images/logo.png">
+    <link rel="stylesheet" href="/static/css/video.css" />
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <meta name="{{ category }}" content="{{ message }}" class="notification">
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <script type="module">
+        import { toast } from 'https://cdn.skypack.dev/wc-toast';
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(element => {
+            if (element.name == "success") { toast(element.content,{ icon: { type: 'custom', content: '✅' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else if (element.name == "error") { toast(element.content,{ icon: { type: 'custom', content: '⚠️' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else { toast(element.content, { theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+        });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          var switchBtn = document.getElementById('signup');
+          var mode = "{{ mode }}";
+          if (mode === 'signup') {
+              switchBtn.click(); 
+          }
+      });
+    </script>
+  </head>
+  <body>
+    <wc-toast></wc-toast>
+    <header>
+        <a href="/"><img src="/static/resources/images/logo_full.png" class="logoheader"></a>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="https://github.com/TheNebulo/Asciify" target="_blank">Module</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="/upload">Upload</a></li>
+            <li><a href="/settings">Settings</a></li>
+            <li><a href="/logout">Logout</a></li>
+            {% else %}
+            <li><a href="/auth">Login</a></li>
+            <li><a href="/auth?mode=signup">Sign Up</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+        <div class="menu-toggle"><i class="fa fa-bars"></i></div>
+      </header>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+            <h2>{{video.name}}</h2>
+            <h6>{{author.name}}</h6>
+            <video src="/static/resources/videos/{{video.id}}.mp4" controls="controls" type="video/mp4">
+            <video src="/static/resources/videos/{{video.id}}.mp4" controls="controls" type="video/ogg">
+              Your browser does not support the video tag.
+          </div>
+      </div>
+    </main>
+  </body>
+  <script src = "/static/js/video.js"></script>
+</html>

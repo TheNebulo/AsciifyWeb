@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Asciify</title>
+    <link rel="icon" type="image/png" href="/static/resources/images/logo.png">
+    <link rel="stylesheet" href="/static/css/auth.css" />
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <meta name="{{ category }}" content="{{ message }}" class="notification">
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <script type="module">
+        import { toast } from 'https://cdn.skypack.dev/wc-toast';
+        const notifications = document.querySelectorAll('.notification');
+        notifications.forEach(element => {
+            if (element.name == "success") { toast(element.content,{ icon: { type: 'custom', content: '✅' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else if (element.name == "error") { toast(element.content,{ icon: { type: 'custom', content: '⚠️' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else { toast(element.content, { theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+        });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          var switchBtn = document.getElementById('signup');
+          var mode = "{{ mode }}";
+          if (mode === 'signup') {
+              switchBtn.click(); 
+          }
+      });
+    </script>
+  </head>
+  <body>
+    <wc-toast></wc-toast>
+    <main>
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap">
+            <form autocomplete="off" class="sign-in-form" method="POST">
+              <div class="logo">
+                <a href="/"><img src="/static/resources/images/logo_full.png" alt="scholarly" /></a>
+              </div>
+
+              <div class="heading">
+                <h2>Welcome Back</h2>
+                <h6>Not registred yet?</h6>
+                <a href="#" class="toggle" id="signup">Sign up</a>
+              </div>
+              <input type="hidden" name="meta" id="request-meta-login">
+              <div class="actual-form">
+                <div class="input-wrap">
+                  <input
+                    type="email"
+                    name ='email'
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Email</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    name="password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
+                    title="At least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Password</label>
+                </div>
+
+                <input type="submit" value="Sign In" class="sign-btn" />
+
+                <p class="text">
+                  Forgotten your password or you login details?
+                  Get fucked lmao.
+                </p>
+              </div>
+            </form>
+
+            <form autocomplete="off" class="sign-up-form" method="POST">
+              <div class="logo">
+                <a href="/"><img src="/static/resources/images/logo_full.png" alt="scholarly" /></a>
+              </div>
+
+              <div class="heading">
+                <h2>Get Started</h2>
+                <h6>Already have an account?</h6>
+                <a href="#" class="toggle">Sign in</a>
+              </div>
+
+              <div class="actual-form">
+                <input type="hidden" name="meta" id="request-meta-signup">
+                <div class="input-wrap">
+                  <input
+                    type="text"
+                    name="name"
+                    minlength="4"
+                    maxlength="10"
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Name</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="email"
+                    name="email"
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Email</label>
+                </div>
+
+                <div class="input-wrap">
+                  <input
+                    type="password"
+                    name="password"
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}"
+                    title="At least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                    class="input-field"
+                    autocomplete="off"
+                    required
+                  />
+                  <label>Password</label>
+                </div>
+
+                <input type="submit" value="Sign Up" class="sign-btn" />
+
+                <p class="text">
+                  By signing up, I agree to the
+                  Terms of Services and
+                  Privacy Policy
+                </p>
+              </div>
+            </form>
+          </div>
+
+          <div class="carousel">
+            <div></div>
+            <div class="text-slider">
+              <div class="text-wrap">
+                <div class="text-group">
+                  <h2>Upload anything</h2>
+                  <h2>Coloured ASCII video</h2>
+                  <h2>4K Support</h2>
+                </div>
+              </div>
+
+              <div class="bullets">
+                <span class="active" data-value="1"></span>
+                <span data-value="2"></span>
+                <span data-value="3"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Javascript file -->
+
+    <script src="/static/js/auth.js"></script>
+  </body>
+</html>

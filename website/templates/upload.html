@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload - Asciify</title>
+  <link rel="icon" type="image/png" href="/static/resources/images/logo.png">
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="/static/css/upload.css">
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+    crossorigin="anonymous"
+  />
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    crossorigin="anonymous"
+  />
+  <script src="https://code.jquery.com/jquery-3.7.0.slim.js" integrity="sha256-7GO+jepT9gJe9LB4XFf8snVOjX3iYNb0FHYr5LI1N5c=" crossorigin="anonymous"></script>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <meta name="{{ category }}" content="{{ message }}" class="notification">
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <script type="module">
+      import { toast } from 'https://cdn.skypack.dev/wc-toast';
+      const notifications = document.querySelectorAll('.notification');
+      notifications.forEach(element => {
+            if (element.name == "success") { toast(element.content,{ icon: { type: 'custom', content: '✅' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else if (element.name == "error") { toast(element.content,{ icon: { type: 'custom', content: '⚠️' }, theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+            else { toast(element.content, { theme: { type: 'custom', style: { background: 'black', color: 'white' } } }); }
+      });
+  </script>
+</head>
+<body class="shrink">
+  <wc-toast></wc-toast>
+  <header>
+    <a href="/"><img src="/static/resources/images/logo_full.png" class="logo"></a>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="https://github.com/TheNebulo/Asciify" target="_blank">Module</a></li>
+        <li><a href="/upload" class="active">Upload</a></li>
+        <li><a href="/settings">Settings</a></li>
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle"><i class="fa fa-bars"></i></div>
+  </header>
+  <center>
+    <form method="POST" enctype="multipart/form-data">
+        <label><i class="fa fa-upload"></i></label>
+        <input
+        type="file"
+        name="video"
+        accept="video/mp4"
+        required
+      />
+      <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      minlength="4"
+      maxlength="20"
+      required
+    />
+      <input type="submit" value="Upload"class="sign-btn" />
+    </form>
+    <h6 style="color: #5C14C9; margin-top: 10px;">Must be mp4 and less than 100mb</h6>
+  </center>
+  <div class="video-container">
+    {% for video in user.videos %}
+    {% if video.done %}
+    <a href="/watch/{{video.id}}"><div class="video-card">
+    {% else %}
+    <div class="video-card">
+    {% endif %}
+      {% if video.done %}
+      <img class="video-thumbnail" src="/static/resources/images/{{video.id}}.png" alt="Video Thumbnail">
+      {% else %}
+      <img class="video-thumbnail" src="/static/resources/images/logo_full.png" alt="Video Thumbnail">
+      {% endif %}
+      <div class="video-details">
+        <h2 class="video-title">{{video.name}}</h2>
+        {% if video.processing %}
+        <h6 class="video-title">Processing</h6>
+        {% elif video.in_queue %}
+        <h6 class="video-title">In Queue</h6>
+        {% endif %}
+        {% if video.done %}
+        <a href="/delete-video/{{ video.id }}" style="display: flex;"><h6 class="video-title" style="flex: 1;">Delete</h6> <i class="fa fa-trash" style="flex: 4; padding-top: 6px; padding-left: 2px; color: #5C14C9;"></i></a>
+        {% endif %}
+        {% if video.failed %}
+        <h6 class="video-title">Failed</h6>
+        {% endif %}
+      </div>{% if video.done %}</a>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</body>
+<script src="/static/js/upload.js"></script>
+</html>
