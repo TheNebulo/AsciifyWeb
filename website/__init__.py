@@ -39,7 +39,7 @@ def get_user(id):
     return load_user(id)
 
 def worker():
-  from .models import Video, User
+  from .models import Video
   
   with app.app_context():
     while True:
@@ -52,6 +52,10 @@ def worker():
       user.alerts = str(video.id)+"_added"
       video.processing = True
       db.session.commit()
+      
+      if not os.path.exists(f'{os.getcwd()}/website/static/resources/videos'):
+        os.mkdir(f'{os.getcwd()}/website/static/resources/videos')
+      
       try:
         asciify.ascii_video(f'{os.getcwd()}/instance/{item}.mp4',f'{os.getcwd()}/website/static/resources/videos/{item}.mp4', progress_bar=False)
       except Exception as e:

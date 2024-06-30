@@ -1,5 +1,5 @@
 from website import create_app, worker, models, db
-import threading, os
+import threading
 
 if __name__ == '__main__':
     app = create_app()

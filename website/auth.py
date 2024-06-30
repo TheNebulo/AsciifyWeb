@@ -39,7 +39,7 @@ def login():
             elif not utils.check_pass(password):
                 flash('Password is not valid.', category='error')
             else:
-                new_user = User(email=email, name=name, alerts="",password=generate_password_hash(password, method='sha256'))
+                new_user = User(email=email, name=name, alerts="",password=generate_password_hash(password, method='scrypt'))
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user, remember=True)
